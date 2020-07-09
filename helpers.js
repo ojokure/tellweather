@@ -1,5 +1,6 @@
 module.exports = {
   getWeatherInfo,
+  normalizeInput,
 };
 
 const axios = require("axios");
@@ -10,19 +11,23 @@ function getWeatherInfo(locationName) {
       `http://api.openweathermap.org/data/2.5/weather?q=${locationName}&units=metric&appid=22d000f607a579733c17d4142574e8d6`
     )
     .then((response) => {
-      const weatherInfo = {};
-      weatherInfo.time = standardizeLocalTime(response.data.timezone);
-      weatherInfo.location = response.data.name;
-      weatherInfo.description = response.data.weather[0].description;
-      weatherInfo.temperature = response.data.main.temp;
+      const time = standardizeLocalTime(response.data.timezone);
+      const location = response.data.name;
+      const description = response.data.weather[0].description;
+      const temperature = response.data.main.temp;
 
       console.log(
-        `It's ${weatherInfo.time} in ${weatherInfo.location} with ${weatherInfo.description} at ${weatherInfo.temperature}°C`
+        `It's ${time} in ${location} with ${description} at ${temperature}°C`
       );
     })
     .catch((error) => {
       console.log(error);
     });
+}
+
+function normalizeInput(input) {
+  const cleanedInput = input.trim().toLowerCase();
+  return cleanedInput;
 }
 
 function standardizeLocalTime(timezone) {

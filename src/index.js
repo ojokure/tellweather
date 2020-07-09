@@ -1,6 +1,6 @@
-const { getWeatherInfo } = require("../helpers");
+const { getWeatherInfo, normalizeInput } = require("../helpers");
 
-const locationName = process.argv[2];
+const locationName = normalizeInput(process.argv[2]);
 
 function tellWeather() {
   getWeatherInfo(locationName);
