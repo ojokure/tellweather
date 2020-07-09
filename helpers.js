@@ -21,13 +21,17 @@ function getWeatherInfo(locationName) {
       );
     })
     .catch((error) => {
-      console.log(error);
+      console.log(
+        "Ooops! Please try again by running the command 'npm run tellweather << Location e.g London >>' "
+      );
     });
 }
 
 function normalizeInput(input) {
-  const cleanedInput = input.trim().toLowerCase();
-  return cleanedInput;
+  if (input) {
+    const cleanedInput = input.trim().toLowerCase();
+    return cleanedInput;
+  }
 }
 
 function standardizeLocalTime(timezone) {
