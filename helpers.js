@@ -1,37 +1,37 @@
 module.exports = {
   getWeatherInfo,
   normalizeInput,
+  standardizeLocalTime,
 };
 
 const axios = require("axios");
 
-function getWeatherInfo(locationName) {
-  axios
-    .get(
-      `http://api.openweathermap.org/data/2.5/weather?q=${locationName}&units=metric&appid=22d000f607a579733c17d4142574e8d6`
-    )
-    .then((response) => {
-      const time = standardizeLocalTime(response.data.timezone);
-      const location = response.data.name;
-      const description = response.data.weather[0].description;
-      const temperature = response.data.main.temp;
-
-      console.log(
-        `It's ${time} in ${location} with ${description} at ${temperature}°C`
-      );
-    })
-    .catch((error) => {
-      console.log(
-        "Ooops! Please try again by running the command 'npm run tellweather << Location e.g London >>' "
-      );
-    });
+function getWeatherInfo(locationNames) {
+  locationNames.forEach((location) => {
+    axios
+      .get(
+        `http://api.openweathermap.org/data/2.5/weather?q=${location}&units=metric&appid=771dcef478ae5faab8ee377e738531eb`
+      )
+      .then((response) => {
+        const time = standardizeLocalTime(response.data.timezone);
+        const location = response.data.name;
+        const description = response.data.weather[0].description;
+        const temperature = response.data.main.temp;
+        console.log(
+          `It's ${time} in ${location} with ${description} at ${temperature}°C temp`
+        );
+      })
+      .catch((err) => {
+        console.log(
+          "Oops! Please try again by running the command 'npm run tellweather << Location(s) e.g London, Milan, Lagos >>'"
+        );
+      });
+  });
 }
 
 function normalizeInput(input) {
-  if (input) {
-    const cleanedInput = input.trim().toLowerCase();
-    return cleanedInput;
-  }
+  const cleanedInput = input.map((str) => str.replace(/\s/g, ""));
+  return cleanedInput;
 }
 
 function standardizeLocalTime(timezone) {
