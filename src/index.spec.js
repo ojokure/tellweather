@@ -8,6 +8,11 @@ const {
   standardizeLocalTime,
 } = require("../helpers");
 
+beforeAll(() => {
+  const date = new Date(1594403660);
+  spy = jest.spyOn(global, "Date").mockImplementation(() => date);
+});
+
 test("normalizeInput works as it should", () => {
   const testInput1 = [" utah", "Ikeja ", "       Tokyo", "  Paris", " Lagos"];
   const testInput2 = ["Accra ", "Lagos", "  Geneva"];
@@ -29,4 +34,11 @@ test("getWeatherInfo works as it should", async () => {
 
   expect(axios.get).toHaveBeenCalledTimes(1);
   expect(axios.get).toHaveBeenCalledWith(mockUrl);
+});
+
+test("standardizeLocalTime works as it should", async () => {
+  localTime = standardizeLocalTime(3600);
+
+  expect(localTime).toEqual("11:53 AM");
+  expect(localTime).toMatch(new RegExp(/AM||PM/));
 });
