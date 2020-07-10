@@ -1,0 +1,35 @@
+module.exports = {
+  coord: { lon: 3.75, lat: 6.58 },
+  weather: [
+    {
+      id: 803,
+      main: "Clouds",
+      description: "broken clouds",
+      icon: "04d",
+    },
+  ],
+  base: "stations",
+  main: {
+    temp: 28,
+    feels_like: 31.53,
+    temp_min: 28,
+    temp_max: 28,
+    pressure: 1013,
+    humidity: 78,
+  },
+  visibility: 10000,
+  wind: { speed: 3.1, deg: 210 },
+  clouds: { all: 75 },
+  dt: 1594390694,
+  sys: {
+    type: 1,
+    id: 1185,
+    country: "NG",
+    sunrise: 1594359348,
+    sunset: 1594404276,
+  },
+  timezone: 3600,
+  id: 2332453,
+  name: "Lagos",
+  cod: 200,
+};
